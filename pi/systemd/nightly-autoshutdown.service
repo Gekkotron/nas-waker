@@ -1,0 +1,8 @@
+[Unit]
+Description=Power off after the nightly backup window
+After=time-sync.target network-online.target vsftpd.service minidlna.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/nightly-autoshutdown
+TimeoutStartSec=infinity

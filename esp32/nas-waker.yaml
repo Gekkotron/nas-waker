@@ -1,0 +1,157 @@
+# NAS waker: an ESP32 DevKit that wakes the Raspberry Pi 4 NAS every night at 23:00
+# for the backups, and exposes status + Wake / Shut down buttons to Nidoo over
+# Home Assistant MQTT discovery.
+#
+# Wiring (both boards are 3.3 V logic, no extra parts):
+#   Pi pin 2  (5V)     -> ESP32 5V / VIN   (Pi 5V stays live while halted)
+#   Pi pin 6  (GND)    -> ESP32 GND
+#   Pi pin 5  (GPIO3)  <- ESP32 GPIO25     pulse low = wake from halt (WAKE_ON_GPIO=1)
+#   Pi pin 11 (GPIO17) <- ESP32 GPIO26     pulse low = clean shutdown (dtoverlay=gpio-shutdown)
+# Unplug the 5V wire while the ESP32 is on USB (first flash), or USB back-feeds the Pi.
+#
+# The Pi powers itself off 30 min after a nightly boot (nightly-autoshutdown on the Pi,
+# which waits while FTP uploads or DLNA streams are running).
+#
+# Build / flash:  uvx esphome==2026.10.2 run nas-waker.yaml
+
+substitutions:
+  name: nas-waker
+  friendly_name: NAS waker
+  pi_status_url: http://192.168.1.131:8200/   # MiniDLNA status page = "NAS online"
+  wake_pin: GPIO25
+  shutdown_pin: GPIO26
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  min_version: 2026.10.2
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+
+logger:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+mqtt:
+  broker: !secret mqtt_broker
+  port: 1883
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+  discovery: true
+  discovery_retain: true
+
+http_request:
+  timeout: 3s
+  verify_ssl: false
+
+time:
+  - platform: sntp
+    id: sntp_time
+    timezone: Europe/Paris
+    on_time:
+      # Nightly backup window.
+      - seconds: 0
+        minutes: 0
+        hours: 23
+        then:
+          - logger.log: "23:00: waking the NAS for the nightly backups"
+          - script.execute: wake_pi
+      # Retry once if the Pi did not come up.
+      - seconds: 0
+        minutes: 5
+        hours: 23
+        then:
+          - if:
+              condition:
+                binary_sensor.is_off: nas_online
+              then:
+                - logger.log: "23:05: NAS still offline, retrying wake"
+                - script.execute: wake_pi
+
+# Open-drain lines: "on" pulls the Pi pin to GND, "off" releases it (Pi pull-up).
+output:
+  - platform: gpio
+    id: wake_line
+    pin:
+      number: ${wake_pin}
+      inverted: true
+      mode:
+        output: true
+        open_drain: true
+  - platform: gpio
+    id: shutdown_line
+    pin:
+      number: ${shutdown_pin}
+      inverted: true
+      mode:
+        output: true
+        open_drain: true
+
+script:
+  - id: wake_pi
+    mode: single
+    then:
+      - output.turn_on: wake_line
+      - delay: 500ms
+      - output.turn_off: wake_line
+  - id: shutdown_pi
+    mode: single
+    then:
+      - output.turn_on: shutdown_line
+      - delay: 1s
+      - output.turn_off: shutdown_line
+
+binary_sensor:
+  - platform: template
+    id: nas_online
+    name: NAS online
+    device_class: connectivity
+    # Without this the first state is not sent to MQTT, and the poll keeps
+    # re-publishing the same value, so Nidoo would never see it.
+    trigger_on_initial_state: true
+    filters:
+      - delayed_off: 90s   # ignore a few missed polls
+
+interval:
+  - interval: 30s
+    then:
+      - wait_until: wifi.connected
+      - http_request.get:
+          url: ${pi_status_url}
+          capture_response: false
+          on_response:
+            then:
+              - binary_sensor.template.publish:
+                  id: nas_online
+                  state: true
+          on_error:
+            then:
+              - binary_sensor.template.publish:
+                  id: nas_online
+                  state: false
+
+button:
+  - platform: template
+    name: Wake NAS
+    icon: mdi:power
+    on_press:
+      - script.execute: wake_pi
+  - platform: template
+    name: Shut down NAS
+    icon: mdi:power-off
+    on_press:
+      - script.execute: shutdown_pi
+
+sensor:
+  - platform: wifi_signal
+    name: WiFi signal
+    update_interval: 60s

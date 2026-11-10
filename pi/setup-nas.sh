@@ -1,0 +1,143 @@
+#!/bin/bash
+# Raspberry Pi NAS: NTFS USB disk + MiniDLNA (films) + vsftpd (nightly backups)
+# + nightly auto-shutdown + the GPIO17 shutdown pin driven by the ESP32 waker.
+#
+# Idempotent: safe to run again after a reinstall or a config change.
+# Run on the Pi, from this folder:
+#   sudo FTP_PASS='choose-one' ./setup-nas.sh            # first install
+#   sudo ./setup-nas.sh                                  # re-run, keeps the FTP password
+#   sudo ./setup-nas.sh --rescan                         # also rebuild the DLNA index
+set -euo pipefail
+cd "$(dirname "$0")"
+
+# ---- settings -------------------------------------------------------------
+DISK_UUID="${DISK_UUID:-A20A1C0F0A1BDF5B}"        # blkid of the NTFS partition
+MNT="${MNT:-/mnt/films}"
+NAS_UID=1000                                      # the login user (nas)
+NAS_GID=1000
+MEDIA_DIRS=("Films" "Dessin animée" "Séries" "News")   # folders on the disk shared over DLNA
+DLNA_NAME="${DLNA_NAME:-NAS Films}"
+FTP_USER="${FTP_USER:-ftpbackup}"
+BACKUP_DIR="$MNT/Backups"
+SHUTDOWN_GPIO=17                                  # ESP32 pulls it low = clean shutdown
+# ---------------------------------------------------------------------------
+
+RESCAN=0
+[ "${1:-}" = "--rescan" ] && RESCAN=1
+[ "$(id -u)" = 0 ] || { echo "run with sudo" >&2; exit 1; }
+
+echo "== packages"
+export DEBIAN_FRONTEND=noninteractive
+apt-get update -qq
+apt-get install -y -qq minidlna vsftpd ntfs-3g >/dev/null
+
+echo "== disk: $MNT (ntfs3 kernel driver)"
+mkdir -p "$MNT"
+FSTAB_LINE="UUID=$DISK_UUID $MNT ntfs3 rw,uid=$NAS_UID,gid=$NAS_GID,umask=002,iocharset=utf8,windows_names,nofail,x-systemd.device-timeout=30s 0 0"
+if ! grep -qxF "$FSTAB_LINE" /etc/fstab; then
+  sed -i "\| $MNT |d" /etc/fstab
+  echo "$FSTAB_LINE" >> /etc/fstab
+  systemctl daemon-reload
+  umount "$MNT" 2>/dev/null || true
+fi
+findmnt -n "$MNT" >/dev/null || mount "$MNT"
+findmnt -n -o SOURCE,FSTYPE,OPTIONS "$MNT"
+mkdir -p "$BACKUP_DIR"
+# ntfs3 keeps the Linux owner of files created by Linux in on-disk attributes
+# (a folder made by root stays root:755 despite uid=), so set it explicitly.
+chown "$NAS_UID:$NAS_GID" "$BACKUP_DIR"
+chmod 775 "$BACKUP_DIR"
+
+echo "== FTP user $FTP_USER (jailed in $BACKUP_DIR)"
+if ! id "$FTP_USER" >/dev/null 2>&1; then
+  : "${FTP_PASS:?first install: set FTP_PASS}"
+  useradd --no-create-home --home-dir "$BACKUP_DIR" --shell /usr/sbin/nologin --gid "$NAS_GID" "$FTP_USER"
+fi
+usermod --home "$BACKUP_DIR" --gid "$NAS_GID" "$FTP_USER" 2>/dev/null || true
+[ -n "${FTP_PASS:-}" ] && echo "$FTP_USER:$FTP_PASS" | chpasswd
+grep -qx /usr/sbin/nologin /etc/shells || echo /usr/sbin/nologin >> /etc/shells   # for pam_shells
+echo "$FTP_USER" > /etc/vsftpd.userlist
+
+echo "== vsftpd (plain FTP, LAN only)"
+[ -f /etc/vsftpd.conf.orig ] || cp /etc/vsftpd.conf /etc/vsftpd.conf.orig
+cat > /etc/vsftpd.conf <<EOF
+listen=YES
+listen_ipv6=NO
+anonymous_enable=NO
+local_enable=YES
+write_enable=YES
+local_umask=002
+# only the backup account may log in, jailed in $BACKUP_DIR
+userlist_enable=YES
+userlist_deny=NO
+userlist_file=/etc/vsftpd.userlist
+chroot_local_user=YES
+allow_writeable_chroot=YES
+local_root=$BACKUP_DIR
+pasv_enable=YES
+pasv_min_port=40000
+pasv_max_port=40100
+utf8_filesystem=YES
+use_localtime=YES
+xferlog_enable=YES
+xferlog_std_format=NO
+dirmessage_enable=NO
+idle_session_timeout=600
+data_connection_timeout=300
+secure_chroot_dir=/var/run/vsftpd/empty
+pam_service_name=vsftpd
+ssl_enable=NO
+EOF
+
+echo "== minidlna \"$DLNA_NAME\""
+[ -f /etc/minidlna.conf.orig ] || cp /etc/minidlna.conf /etc/minidlna.conf.orig
+{
+  for d in "${MEDIA_DIRS[@]}"; do echo "media_dir=V,$MNT/$d"; done
+  cat <<EOF
+friendly_name=$DLNA_NAME
+db_dir=/var/cache/minidlna
+log_dir=/var/log/minidlna
+port=8200
+inotify=yes
+notify_interval=300
+root_container=B
+album_art_names=Cover.jpg/cover.jpg/AlbumArtSmall.jpg/albumartsmall.jpg/AlbumArt.jpg/albumart.jpg/Album.jpg/album.jpg/Folder.jpg/folder.jpg/Thumb.jpg/thumb.jpg/poster.jpg
+EOF
+} > /etc/minidlna.conf
+echo "fs.inotify.max_user_watches=100000" > /etc/sysctl.d/90-minidlna.conf
+sysctl -q -p /etc/sysctl.d/90-minidlna.conf
+
+# start the services only once the disk is mounted
+for s in minidlna vsftpd; do
+  mkdir -p "/etc/systemd/system/$s.service.d"
+  printf '[Unit]\nRequiresMountsFor=%s\n' "$MNT" > "/etc/systemd/system/$s.service.d/mount.conf"
+done
+
+echo "== nightly auto-shutdown"
+install -m 755 nightly-autoshutdown /usr/local/sbin/nightly-autoshutdown
+install -m 644 systemd/nightly-autoshutdown.service systemd/nightly-autoshutdown.timer /etc/systemd/system/
+
+echo "== GPIO$SHUTDOWN_GPIO shutdown pin (ESP32 waker)"
+CFG=/boot/firmware/config.txt
+OVERLAY="dtoverlay=gpio-shutdown,gpio_pin=$SHUTDOWN_GPIO,active_low=1,gpio_pull=up"
+[ -f "$CFG.orig" ] || cp "$CFG" "$CFG.orig"
+if ! grep -qxF "$OVERLAY" "$CFG"; then
+  printf '\n# NAS waker (ESP32): pulse GPIO%s low = clean shutdown; GPIO3 (pin 5) low = wake\n%s\n' \
+    "$SHUTDOWN_GPIO" "$OVERLAY" >> "$CFG"
+  echo "   added to $CFG (active after next boot)"
+fi
+grep -q '^WAKE_ON_GPIO=1' <(rpi-eeprom-config 2>/dev/null) \
+  || echo "   WARNING: bootloader WAKE_ON_GPIO is not 1; the ESP32 cannot wake the Pi (sudo rpi-eeprom-config --edit)"
+
+echo "== services"
+systemctl daemon-reload
+systemctl enable -q minidlna vsftpd nightly-autoshutdown.timer
+if [ "$RESCAN" = 1 ]; then
+  systemctl stop minidlna
+  rm -f /var/cache/minidlna/files.db
+fi
+systemctl restart vsftpd minidlna
+systemctl start nightly-autoshutdown.timer
+sleep 2
+systemctl is-active minidlna vsftpd nightly-autoshutdown.timer
+echo "== done"
