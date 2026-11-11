@@ -160,9 +160,12 @@ fi
 mkdir -p /etc/systemd/system/smbd.service.d
 printf '[Unit]\nRequiresMountsFor=%s\n' "$MNT" > /etc/systemd/system/smbd.service.d/mount.conf
 
-echo "== nightly auto-shutdown"
-install -m 755 nightly-autoshutdown /usr/local/sbin/nightly-autoshutdown
-install -m 644 systemd/nightly-autoshutdown.service systemd/nightly-autoshutdown.timer /etc/systemd/system/
+echo "== remove the old nightly auto-shutdown (the Nidoo flow now shuts the NAS down)"
+if [ -e /etc/systemd/system/nightly-autoshutdown.timer ]; then
+  systemctl disable -q --now nightly-autoshutdown.timer 2>/dev/null || true
+  rm -f /etc/systemd/system/nightly-autoshutdown.service /etc/systemd/system/nightly-autoshutdown.timer \
+        /usr/local/sbin/nightly-autoshutdown /etc/default/nightly-autoshutdown
+fi
 
 echo "== GPIO$SHUTDOWN_GPIO shutdown pin (ESP32 waker)"
 CFG=/boot/firmware/config.txt
@@ -178,13 +181,12 @@ grep -q '^WAKE_ON_GPIO=1' <(rpi-eeprom-config 2>/dev/null) \
 
 echo "== services"
 systemctl daemon-reload
-systemctl enable -q minidlna vsftpd smbd avahi-daemon nightly-autoshutdown.timer
+systemctl enable -q minidlna vsftpd smbd avahi-daemon
 if [ "$RESCAN" = 1 ]; then
   systemctl stop minidlna
   rm -f /var/cache/minidlna/files.db
 fi
 systemctl restart vsftpd minidlna smbd
-systemctl start nightly-autoshutdown.timer
 sleep 2
-systemctl is-active minidlna vsftpd smbd nightly-autoshutdown.timer
+systemctl is-active minidlna vsftpd smbd
 echo "== done"

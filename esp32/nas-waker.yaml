@@ -1,6 +1,6 @@
-# NAS waker: an ESP32 DevKit that wakes the Raspberry Pi 4 NAS every night at 23:00
-# for the backups, and exposes status + Wake / Shut down buttons to Nidoo over
-# Home Assistant MQTT discovery.
+# NAS waker: an ESP32 DevKit that wakes and shuts down the Raspberry Pi 4 NAS on demand.
+# It exposes status + Wake / Shut down buttons to Nidoo over Home Assistant MQTT
+# discovery. There is no scheduled wake-up: the Pi starts only when Wake NAS is pressed.
 #
 # Wiring (both boards are 3.3 V logic, no extra parts):
 #   Pi pin 2  (5V)     -> ESP32 5V / VIN   (Pi 5V stays live while halted)
@@ -8,9 +8,6 @@
 #   Pi pin 5  (GPIO3)  <- ESP32 GPIO25     pulse low = wake from halt (WAKE_ON_GPIO=1)
 #   Pi pin 11 (GPIO17) <- ESP32 GPIO26     pulse low = clean shutdown (dtoverlay=gpio-shutdown)
 # Unplug the 5V wire while the ESP32 is on USB (first flash), or USB back-feeds the Pi.
-#
-# The Pi powers itself off 30 min after a nightly boot (nightly-autoshutdown on the Pi,
-# which waits while FTP uploads or DLNA streams are running).
 #
 # Build / flash:  uvx esphome==2026.10.2 run nas-waker.yaml
 
@@ -52,30 +49,6 @@ mqtt:
 http_request:
   timeout: 3s
   verify_ssl: false
-
-time:
-  - platform: sntp
-    id: sntp_time
-    timezone: Europe/Paris
-    on_time:
-      # Nightly backup window.
-      - seconds: 0
-        minutes: 0
-        hours: 23
-        then:
-          - logger.log: "23:00: waking the NAS for the nightly backups"
-          - script.execute: wake_pi
-      # Retry once if the Pi did not come up.
-      - seconds: 0
-        minutes: 5
-        hours: 23
-        then:
-          - if:
-              condition:
-                binary_sensor.is_off: nas_online
-              then:
-                - logger.log: "23:05: NAS still offline, retrying wake"
-                - script.execute: wake_pi
 
 # Open-drain lines: "on" pulls the Pi pin to GND, "off" releases it (Pi pull-up).
 output:

@@ -5,7 +5,7 @@ A Raspberry Pi 4 home NAS that is only on when it is needed, woken by an ESP32.
 - **Films over DLNA**: MiniDLNA shares an NTFS USB disk (TVs, Freebox, VLC).
 - **Nightly backups over FTP**: vsftpd, one jailed account, plain FTP on the LAN.
 - **Backups in the Finder**: an SMB share of the same folder, with the same account.
-- **Power schedule**: the ESP32 wakes the Pi at 23:00. The Pi powers itself off 30 minutes after that nightly boot, and waits first while an FTP upload or a DLNA stream is still running.
+- **Power schedule**: a Nidoo flow presses *Wake NAS* at 22:45 and *Shut down NAS* at 23:15 every night. The ESP32 has no schedule of its own.
 - **Nidoo integration**: the ESP32 publishes Home Assistant MQTT discovery, so [Nidoo](https://github.com/Gekkotron/Nidoo) shows *Wake NAS* and *Shut down NAS* with no Nidoo change.
 
 ![Wiring: four Dupont jumpers from the ESP32 DevKit to the Raspberry Pi 4 header](docs/wiring.svg)
@@ -17,8 +17,6 @@ A Raspberry Pi 4 home NAS that is only on when it is needed, woken by an ESP32.
 | `esp32/nas-waker.yaml` | ESPHome firmware for the waker |
 | `esp32/secrets.example.yaml` | Template for `esp32/secrets.yaml` (git-ignored) |
 | `pi/setup-nas.sh` | Idempotent installer for everything on the Pi |
-| `pi/nightly-autoshutdown` | Powers the Pi off after the nightly window |
-| `pi/systemd/` | Its service and timer (30 min after boot) |
 | `docs/draw.py` | Draws `docs/wiring.svg` and `docs/schematic.svg` (`python3 docs/draw.py`) |
 
 ## Wiring
@@ -91,22 +89,18 @@ It keeps `.orig` copies of the config files it replaces.
 - **FTP**: `192.168.1.131`, port 21, user `ftpbackup`, plain FTP, passive mode. The account is jailed in the disk's `Backups` folder, so a client's `/` is `Backups/`. A remote path of `/backups/Accounting` lands in `Backups/backups/Accounting/` on the disk.
 - **SMB**: in the Finder, *Go → Connect to Server* (⌘K) → `smb://192.168.1.131/Backups`, same user and password. It also appears in the sidebar as **NAS**. Use it to browse, copy and delete.
 - **Don't use the Finder's own FTP support** (`ftp://…` in ⌘K). It is read-only, and it caches the folder listing, so new backups don't appear until you eject and reconnect.
-- **Schedule nightly backups for 23:05 or later.** The Pi starts at 23:00 and needs about a minute before FTP accepts connections.
+- **Schedule nightly backups between 22:50 and 23:05.** The Pi starts at 22:45 and needs about a minute before FTP accepts connections. At 23:15 it shuts down even if an upload is still running.
 
-### Nightly auto-shutdown
+### Nightly schedule (Nidoo flow)
 
-`nightly-autoshutdown.timer` runs the script 30 minutes after every boot. The script:
+The flow **NAS : sauvegarde nocturne** in Nidoo has two schedule triggers, each driving one command card:
 
-1. Waits until the clock is set from the network (a Pi 4 has no RTC).
-2. Stays on if the Pi booted outside the nightly window (22:45–23:30). A Pi started by hand to watch a film is never switched off.
-3. Otherwise powers off, re-checking every 5 minutes while connections are open on FTP (21, 40000–40100) or DLNA (8200), with a hard limit of 3 hours.
+| Cron | Card |
+|---|---|
+| `45 22 * * *` | press `ESPbuttonwake_nas` |
+| `15 23 * * *` | press `ESPbuttonshut_down_nas` |
 
-Override the settings in `/etc/default/nightly-autoshutdown`. To test without powering off:
-
-```sh
-sudo nightly-autoshutdown --dry-run --window 00:00-23:59
-journalctl -t nightly-autoshutdown
-```
+Change the times or switch the flow off in Nidoo; nothing on the Pi or the ESP32 needs to change. The shutdown is the same clean `poweroff` as the button: it doesn't wait for transfers. Older installs had a `nightly-autoshutdown` timer on the Pi; `setup-nas.sh` now removes it.
 
 ## ESP32 firmware
 
@@ -123,7 +117,6 @@ Keep `ota_password` in `secrets.yaml`: without it the next update has to go over
 
 What the firmware does:
 
-- **23:00**: pulses the wake line; at **23:05** it pulses again if the NAS is still offline.
 - **NAS online**: polls `http://192.168.1.131:8200/` every 30 s (offline after 90 s without an answer).
 - **Wake NAS / Shut down NAS** buttons pulse the wake / shutdown lines.
 
@@ -140,7 +133,7 @@ The ESP32 publishes discovery under `homeassistant/` on the broker Nidoo reads, 
 
 **To see whether the NAS is up, use a Nidoo network watch** (ping) on `192.168.1.131`, attached to the NAS waker device. It reacts within one ping interval (10–600 s, 30 s by default), and goes green as soon as the Pi's network is up.
 
-The ESP32's own *NAS online* is deliberately slow: it polls the DLNA page every 30 s and waits 90 s before reporting offline, so it takes up to about 2 minutes. It's hidden in Nidoo, but the firmware still uses it for the 23:05 retry.
+The ESP32's own *NAS online* is deliberately slow: it polls the DLNA page every 30 s and waits 90 s before reporting offline, so it takes up to about 2 minutes. It's hidden in Nidoo.
 
 ## Notes
 

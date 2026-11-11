@@ -1,9 +1,0 @@
-[Unit]
-Description=Check 30 min after boot whether to power off (nightly backup window)
-
-[Timer]
-OnBootSec=30min
-AccuracySec=30s
-
-[Install]
-WantedBy=timers.target
