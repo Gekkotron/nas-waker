@@ -58,7 +58,7 @@ Feeding the Pi's 3.3 V pin straight into the ESP32's 3V3 pin would skip the DevK
 
 To cut the ESP32's power use anyway:
 
-- **Lower its average current** with `power_save_mode: light` under `wifi:`. MQTT gets slightly slower, which doesn't matter here.
+- **Wi-Fi power saving is already on.** ESPHome defaults to `power_save_mode: light` on the ESP32. `high` would save a little more but adds latency to MQTT commands; it isn't worth it here.
 - **Fit a small 5 V → 3.3 V switching regulator** fed from pin 2, driving the 3V3 pin. That keeps both benefits at about 90% efficiency.
 - **Never power the 3V3 pin while USB is connected.** Two regulators would then fight over the same rail.
 
