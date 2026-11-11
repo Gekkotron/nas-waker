@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 780" width="1120" height="780">
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111827"/><stop offset="1" stop-color="#0b1020"/>
+    </linearGradient>
+    <linearGradient id="pcbGreen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2f8a4c"/><stop offset="1" stop-color="#1d6136"/>
+    </linearGradient>
+    <linearGradient id="pcbBlack" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#26292f"/><stop offset="1" stop-color="#15171b"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e3e6ea"/><stop offset="0.5" stop-color="#b9bec6"/>
+      <stop offset="1" stop-color="#9097a1"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f6d77a"/><stop offset="1" stop-color="#b8892b"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+    <filter id="wireShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#000" flood-opacity="0.55"/>
+    </filter>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c9d1d9"/></marker>
+    <marker id="arrY" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#f5c518"/></marker>
+    <marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3e8bff"/></marker>
+    <marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#e5484d"/></marker>
+  </defs>
+<rect width="1120" height="780" rx="22" fill="url(#bg)"/>
+<text x="48.0" y="62.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="28" fill="#f0f3f6" text-anchor="start" font-weight="700" >NAS waker · schematic</text>
+<text x="48.0" y="92.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" fill="#8b949e" text-anchor="start" font-weight="400" >Power path and the two open-drain signal lines</text>
+<rect x="210" y="128" width="410" height="472" rx="18" fill="#10261a" stroke="#2f8a4c" stroke-width="2"/>
+<text x="230.0" y="156.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" fill="#8fe3a8" text-anchor="start" font-weight="700" >Raspberry Pi 4</text>
+<rect x="736" y="128" width="344" height="472" rx="18" fill="#161a22" stroke="#5c6370" stroke-width="2"/>
+<text x="756.0" y="156.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" fill="#d0d7de" text-anchor="start" font-weight="700" >ESP32 DevKit V1</text>
+<rect x="40" y="182" width="140" height="84" rx="12" fill="#161b22" stroke="#3a3f4b" stroke-width="2"/>
+<text x="54.0" y="207.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#f0f3f6" text-anchor="start" font-weight="700" >Power supply</text>
+<text x="54.0" y="228.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" >USB-C</text>
+<text x="54.0" y="245.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" >5.1 V · 3 A</text>
+<rect x="236" y="176" width="170" height="98" rx="12" fill="#161b22" stroke="#e5484d" stroke-width="2"/>
+<text x="250.0" y="201.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#f0f3f6" text-anchor="start" font-weight="700" >5 V rail</text>
+<text x="250.0" y="222.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" >pins 2 &amp; 4, straight</text>
+<text x="250.0" y="239.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" >from USB-C: live</text>
+<text x="250.0" y="256.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" >while the Pi is halted</text>
+<rect x="236" y="316" width="170" height="98" rx="12" fill="#161b22" stroke="#9ca3af" stroke-width="2"/>
+<text x="250.0" y="341.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#f0f3f6" text-anchor="start" font-weight="700" >3.3 V rail (PMIC)</text>
+<text x="250.0" y="362.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" >SoC I/O, SD card,</text>
+<text x="250.0" y="379.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" >Wi-Fi chip</text>
+<text x="250.0" y="396.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" >pins 1 &amp; 17</text>
+<rect x="440" y="316" width="160" height="98" rx="12" fill="#161b22" stroke="#f5c518" stroke-width="2"/>
+<text x="454.0" y="341.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#f0f3f6" text-anchor="start" font-weight="700" >Bootloader</text>
+<text x="454.0" y="362.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" >WAKE_ON_GPIO=1</text>
+<text x="454.0" y="379.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" >watches GPIO3 (pin 5)</text>
+<text x="454.0" y="396.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" >1.8 kΩ pull-up</text>
+<rect x="440" y="458" width="160" height="98" rx="12" fill="#161b22" stroke="#3e8bff" stroke-width="2"/>
+<text x="454.0" y="483.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#f0f3f6" text-anchor="start" font-weight="700" >gpio-shutdown</text>
+<text x="454.0" y="504.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" >GPIO17 (pin 11) low</text>
+<text x="454.0" y="521.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" >→ power key →</text>
+<text x="454.0" y="538.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" >systemd poweroff</text>
+<rect x="760" y="176" width="150" height="98" rx="12" fill="#161b22" stroke="#e5484d" stroke-width="2"/>
+<text x="774.0" y="201.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#f0f3f6" text-anchor="start" font-weight="700" >VIN</text>
+<text x="774.0" y="222.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" >5 V in</text>
+<rect x="760" y="316" width="150" height="98" rx="12" fill="#161b22" stroke="#e5484d" stroke-width="2"/>
+<text x="774.0" y="341.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#f0f3f6" text-anchor="start" font-weight="700" >AMS1117 LDO</text>
+<text x="774.0" y="362.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" >5 V → 3.3 V</text>
+<text x="774.0" y="379.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" >~0.15 W as heat</text>
+<rect x="930" y="316" width="130" height="98" rx="12" fill="#161b22" stroke="#3a3f4b" stroke-width="2"/>
+<text x="944.0" y="341.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#f0f3f6" text-anchor="start" font-weight="700" >ESP32</text>
+<text x="944.0" y="362.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" >3.3 V logic</text>
+<text x="944.0" y="379.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" >Wi-Fi · MQTT</text>
+<text x="944.0" y="396.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" >SNTP clock</text>
+<rect x="760" y="458" width="300" height="98" rx="12" fill="#161b22" stroke="#c9d1d9" stroke-width="2"/>
+<text x="774.0" y="483.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#f0f3f6" text-anchor="start" font-weight="700" >GPIO25 · GPIO26  (open-drain)</text>
+<text x="774.0" y="504.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" >on  = pull the Pi pin to GND</text>
+<text x="774.0" y="521.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" >off = released, the Pi pull-up wins</text>
+<text x="774.0" y="538.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" >never drives 3.3 V into the Pi</text>
+<path d="M180,224 L234,224" fill="none" stroke="#e5484d" stroke-width="4"  marker-end="url(#arrR)" stroke-linecap="round"/>
+<path d="M406,224 L758,224" fill="none" stroke="#e5484d" stroke-width="5"  marker-end="url(#arrR)" stroke-linecap="round"/>
+<text x="582.0" y="212.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#ff8f92" text-anchor="middle" font-weight="700" >red jumper · pin 2 → VIN</text>
+<path d="M320,274 L320,314" fill="none" stroke="#9ca3af" stroke-width="3"  marker-end="url(#arr)" stroke-linecap="round"/>
+<path d="M835,274 L835,314" fill="none" stroke="#e5484d" stroke-width="4"  marker-end="url(#arrR)" stroke-linecap="round"/>
+<path d="M910,365 L928,365" fill="none" stroke="#e5484d" stroke-width="3"  marker-end="url(#arrR)" stroke-linecap="round"/>
+<path d="M406,342 C520,342 560,290 664,290 L758,290" fill="none" stroke="#e5484d" stroke-width="2.5" stroke-dasharray="7 7"  stroke-linecap="round"/>
+<g transform="translate(700,290)"><circle r="13" fill="#0b1020" stroke="#e5484d" stroke-width="2.5"/><path d="M-6,-6 L6,6 M6,-6 L-6,6" stroke="#e5484d" stroke-width="3" stroke-linecap="round"/></g>
+<text x="560.0" y="272.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#ff8f92" text-anchor="middle" font-weight="700" >not used: Pi 3.3 V → ESP32 3V3</text>
+<path d="M758,494 C700,494 670,365 604,365" fill="none" stroke="#f5c518" stroke-width="4"  marker-end="url(#arrY)" stroke-linecap="round"/>
+<rect x="646" y="424" width="66" height="38" rx="6" fill="#0b1020" fill-opacity="0.9"/>
+<text x="678.0" y="438.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#f5c518" text-anchor="middle" font-weight="700" >D25</text>
+<text x="678.0" y="454.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#f5c518" text-anchor="middle" font-weight="700" >→ pin 5</text>
+<path d="M758,522 C700,522 670,507 604,507" fill="none" stroke="#3e8bff" stroke-width="4"  marker-end="url(#arrB)" stroke-linecap="round"/>
+<rect x="642" y="534" width="74" height="38" rx="6" fill="#0b1020" fill-opacity="0.9"/>
+<text x="678.0" y="548.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#79b0ff" text-anchor="middle" font-weight="700" >D26</text>
+<text x="678.0" y="564.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#79b0ff" text-anchor="middle" font-weight="700" >→ pin 11</text>
+<path d="M320,600 L320,632 L910,632 L910,600" fill="none" stroke="#9aa1ab" stroke-width="3"   stroke-linecap="round"/>
+<text x="615.0" y="624.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#c9d1d9" text-anchor="middle" font-weight="700" >black jumper · GND pin 6 ↔ GND (common ground)</text>
+<rect x="40" y="650" width="1040" height="104" rx="12" fill="#1a1410" stroke="#e5484d" stroke-opacity="0.5"/>
+<text x="60.0" y="674.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#ffb3b5" text-anchor="start" font-weight="700" >Why VIN and not 3.3 V</text>
+<text x="60.0" y="696.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#c9d1d9" text-anchor="start" font-weight="400" >• Wi-Fi bursts (~300 mA) stay off the Pi's 3.3 V rail, which feeds the SD card.</text>
+<text x="60.0" y="715.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#c9d1d9" text-anchor="start" font-weight="400" >• The 5 V pins are the raw input: the ESP32 keeps running while the Pi is halted.</text>
+<text x="60.0" y="734.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#c9d1d9" text-anchor="start" font-weight="400" >• The regulator only turns ~0.15 W into heat (≈ 1.5 kWh a year).</text>
+</svg>

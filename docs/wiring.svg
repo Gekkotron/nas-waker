@@ -1,0 +1,221 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 930" width="1120" height="930">
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111827"/><stop offset="1" stop-color="#0b1020"/>
+    </linearGradient>
+    <linearGradient id="pcbGreen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2f8a4c"/><stop offset="1" stop-color="#1d6136"/>
+    </linearGradient>
+    <linearGradient id="pcbBlack" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#26292f"/><stop offset="1" stop-color="#15171b"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e3e6ea"/><stop offset="0.5" stop-color="#b9bec6"/>
+      <stop offset="1" stop-color="#9097a1"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f6d77a"/><stop offset="1" stop-color="#b8892b"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+    <filter id="wireShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#000" flood-opacity="0.55"/>
+    </filter>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c9d1d9"/></marker>
+    <marker id="arrY" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#f5c518"/></marker>
+    <marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3e8bff"/></marker>
+    <marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#e5484d"/></marker>
+  </defs>
+<rect width="1120" height="930" rx="22" fill="url(#bg)"/>
+<text x="48.0" y="62.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="28" fill="#f0f3f6" text-anchor="start" font-weight="700" >NAS waker · wiring</text>
+<text x="48.0" y="92.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" fill="#8b949e" text-anchor="start" font-weight="400" >4 female–female Dupont jumpers · ESP32 DevKit V1 (30-pin) → Raspberry Pi 4</text>
+<g filter="url(#shadow)"><rect x="60" y="150" width="350" height="560" rx="18" fill="url(#pcbGreen)" stroke="#145028" stroke-width="2"/></g>
+<circle cx="84" cy="174" r="9" fill="#0b1020" stroke="url(#gold)" stroke-width="4"/>
+<circle cx="386" cy="174" r="9" fill="#0b1020" stroke="url(#gold)" stroke-width="4"/>
+<circle cx="84" cy="614" r="9" fill="#0b1020" stroke="url(#gold)" stroke-width="4"/>
+<rect x="170" y="260" width="64" height="70" rx="4" fill="url(#metal)" stroke="#6b7280"/>
+<text x="202.0" y="300.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#374151" text-anchor="middle" font-weight="700" >Wi-Fi</text>
+<rect x="170" y="380" width="92" height="92" rx="6" fill="url(#metal)" stroke="#6b7280"/>
+<text x="216.0" y="430.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" fill="#374151" text-anchor="middle" font-weight="700" >BCM2711</text>
+<rect x="178" y="496" width="76" height="56" rx="4" fill="#111" stroke="#333"/>
+<text x="216.0" y="529.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" fill="#9ca3af" text-anchor="middle" font-weight="600" >RAM</text>
+<rect x="90" y="648" width="80" height="80" rx="4" fill="url(#metal)" stroke="#6b7280"/>
+<text x="130.0" y="716.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" fill="#374151" text-anchor="middle" font-weight="700" >ETH</text>
+<rect x="190" y="648" width="64" height="80" rx="4" fill="url(#metal)" stroke="#6b7280"/>
+<text x="222.0" y="716.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" fill="#374151" text-anchor="middle" font-weight="700" >USB 2</text>
+<rect x="274" y="648" width="64" height="80" rx="4" fill="url(#metal)" stroke="#6b7280"/>
+<text x="306.0" y="716.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" fill="#374151" text-anchor="middle" font-weight="700" >USB 3</text>
+<rect x="46" y="260" width="40" height="44" rx="4" fill="url(#metal)" stroke="#6b7280"/>
+<text x="66.0" y="286.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#374151" text-anchor="middle" font-weight="700" transform="rotate(-90 66 286)">USB-C</text>
+<rect x="46" y="330" width="40" height="44" rx="4" fill="url(#metal)" stroke="#6b7280"/>
+<text x="66.0" y="356.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#374151" text-anchor="middle" font-weight="700" transform="rotate(-90 66 356)">HDMI0</text>
+<rect x="46" y="400" width="40" height="44" rx="4" fill="url(#metal)" stroke="#6b7280"/>
+<text x="66.0" y="426.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#374151" text-anchor="middle" font-weight="700" transform="rotate(-90 66 426)">HDMI1</text>
+<rect x="100" y="142" width="70" height="16" rx="3" fill="#9097a1"/>
+<text x="135.0" y="136.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10" fill="#8b949e" text-anchor="middle" font-weight="600" >SD card</text>
+<text x="90.0" y="594.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" fill="#e6f4ea" text-anchor="start" font-weight="700" >Raspberry Pi 4 Model B</text>
+<text x="108.0" y="614.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11" fill="#b7dfc4" text-anchor="start" font-weight="400" >circled numbers = physical pins,</text>
+<text x="108.0" y="629.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11" fill="#b7dfc4" text-anchor="start" font-weight="400" >not GPIO names</text>
+<rect x="333" y="187" width="56" height="486" rx="5" fill="#0f1115"/>
+<text x="328.0" y="206.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#cfe8d6" text-anchor="end" font-weight="500" >3V3</text>
+<text x="328.0" y="230.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#cfe8d6" text-anchor="end" font-weight="500" >GPIO2</text>
+<text x="328.0" y="254.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#f5c518" text-anchor="end" font-weight="700" >GPIO3</text>
+<text x="328.0" y="278.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#cfe8d6" text-anchor="end" font-weight="500" >GPIO4</text>
+<text x="328.0" y="302.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#cfe8d6" text-anchor="end" font-weight="500" >GND</text>
+<text x="328.0" y="326.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#3e8bff" text-anchor="end" font-weight="700" >GPIO17</text>
+<text x="332.0" y="180.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10" fill="#cfe8d6" text-anchor="end" font-weight="600" >SD-card end · pin 1 ▸</text>
+<g filter="url(#shadow)"><rect x="760" y="110" width="250" height="752" rx="16" fill="url(#pcbBlack)" stroke="#3a3f4b" stroke-width="2"/></g>
+<rect x="810" y="128" width="150" height="192" rx="6" fill="#1b2a3a" stroke="#31465c"/>
+<path d="M824,142 L838,172 L852,142 L866,172 L880,142 L894,172 L908,142 L922,172 L936,142 L950,172" fill="none" stroke="url(#gold)" stroke-width="4" stroke-linejoin="round"/>
+<rect x="822" y="190" width="126" height="118" rx="5" fill="url(#metal)" stroke="#6b7280"/>
+<text x="885.0" y="246.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#374151" text-anchor="middle" font-weight="700" >ESP32-WROOM-32</text>
+<text x="885.0" y="266.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" fill="#4b5563" text-anchor="middle" font-weight="500" >Wi-Fi · MQTT</text>
+<circle cx="782" cy="360" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<circle cx="988" cy="360" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<text x="800.0" y="364.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="start" font-weight="500" >EN</text>
+<text x="970.0" y="364.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="end" font-weight="500" >D23</text>
+<circle cx="782" cy="388" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<circle cx="988" cy="388" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<text x="800.0" y="392.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="start" font-weight="500" >VP</text>
+<text x="970.0" y="392.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="end" font-weight="500" >D22</text>
+<circle cx="782" cy="416" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<circle cx="988" cy="416" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<text x="800.0" y="420.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="start" font-weight="500" >VN</text>
+<text x="970.0" y="420.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="end" font-weight="500" >TX0</text>
+<circle cx="782" cy="444" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<circle cx="988" cy="444" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<text x="800.0" y="448.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="start" font-weight="500" >D34</text>
+<text x="970.0" y="448.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="end" font-weight="500" >RX0</text>
+<circle cx="782" cy="472" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<circle cx="988" cy="472" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<text x="800.0" y="476.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="start" font-weight="500" >D35</text>
+<text x="970.0" y="476.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="end" font-weight="500" >D21</text>
+<circle cx="782" cy="500" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<circle cx="988" cy="500" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<text x="800.0" y="504.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="start" font-weight="500" >D32</text>
+<text x="970.0" y="504.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="end" font-weight="500" >D19</text>
+<circle cx="782" cy="528" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<circle cx="988" cy="528" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<text x="800.0" y="532.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="start" font-weight="500" >D33</text>
+<text x="970.0" y="532.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="end" font-weight="500" >D18</text>
+<circle cx="782" cy="556" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<circle cx="988" cy="556" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<text x="800.0" y="560.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#f5c518" text-anchor="start" font-weight="700" >D25</text>
+<text x="970.0" y="560.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="end" font-weight="500" >D5</text>
+<circle cx="782" cy="584" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<circle cx="988" cy="584" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<text x="800.0" y="588.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#3e8bff" text-anchor="start" font-weight="700" >D26</text>
+<text x="970.0" y="588.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="end" font-weight="500" >TX2</text>
+<circle cx="782" cy="612" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<circle cx="988" cy="612" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<text x="800.0" y="616.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="start" font-weight="500" >D27</text>
+<text x="970.0" y="616.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="end" font-weight="500" >RX2</text>
+<circle cx="782" cy="640" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<circle cx="988" cy="640" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<text x="800.0" y="644.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="start" font-weight="500" >D14</text>
+<text x="970.0" y="644.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="end" font-weight="500" >D4</text>
+<circle cx="782" cy="668" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<circle cx="988" cy="668" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<text x="800.0" y="672.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="start" font-weight="500" >D12</text>
+<text x="970.0" y="672.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="end" font-weight="500" >D2</text>
+<circle cx="782" cy="696" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<circle cx="988" cy="696" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<text x="800.0" y="700.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="start" font-weight="500" >D13</text>
+<text x="970.0" y="700.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="end" font-weight="500" >D15</text>
+<circle cx="782" cy="724" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<circle cx="988" cy="724" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<text x="800.0" y="728.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#ffffff" text-anchor="start" font-weight="700" >GND</text>
+<text x="970.0" y="728.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="end" font-weight="500" >GND</text>
+<circle cx="782" cy="752" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<circle cx="988" cy="752" r="7" fill="#0f1115" stroke="url(#gold)" stroke-width="3.5"/>
+<text x="800.0" y="756.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#e5484d" text-anchor="start" font-weight="700" >VIN</text>
+<text x="970.0" y="756.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#8b949e" text-anchor="end" font-weight="500" >3V3</text>
+<rect x="852" y="664" width="66" height="40" rx="3" fill="#1f2328" stroke="#e5484d" stroke-opacity="0.7"/>
+<rect x="866" y="654" width="38" height="10" fill="#9097a1"/>
+<text x="885.0" y="682.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#d0d7de" text-anchor="middle" font-weight="700" >AMS1117</text>
+<text x="885.0" y="696.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#ff8f92" text-anchor="middle" font-weight="600" >5V→3.3V</text>
+<rect x="863.0" y="770" width="44" height="36" rx="3" fill="#1f2328" stroke="#5c6370"/>
+<text x="885.0" y="792.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="600" >CP2102</text>
+<rect x="810" y="814" width="30" height="24" rx="4" fill="#d0d7de"/><circle cx="825" cy="826" r="7" fill="#30363d"/>
+<text x="825.0" y="808.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="600" >EN</text>
+<rect x="930" y="814" width="30" height="24" rx="4" fill="#d0d7de"/><circle cx="945" cy="826" r="7" fill="#30363d"/>
+<text x="945.0" y="808.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="600" >BOOT</text>
+<rect x="859.0" y="836" width="52" height="40" rx="5" fill="url(#metal)" stroke="#6b7280"/>
+<text x="885.0" y="898.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11" fill="#8b949e" text-anchor="middle" font-weight="500" >micro-USB · first flash only</text>
+<text x="885.0" y="96.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" fill="#f0f3f6" text-anchor="middle" font-weight="700" >ESP32 DevKit V1</text>
+<g filter="url(#wireShadow)"><path d="M374,202 C554,202 582,752 782,752" fill="none" stroke="#000000" stroke-opacity="0.6" stroke-width="10" stroke-linecap="round"/><path d="M374,202 C554,202 582,752 782,752" fill="none" stroke="#e5484d" stroke-width="7" stroke-linecap="round"/><path d="M374,202 C554,202 582,752 782,752" fill="none" stroke="#ffffff" stroke-opacity="0.22" stroke-width="2" stroke-linecap="round" transform="translate(-1.5,-1.5)"/></g>
+<g filter="url(#wireShadow)"><path d="M374,250 C554,250 582,724 782,724" fill="none" stroke="#9aa1ab" stroke-opacity="0.6" stroke-width="10" stroke-linecap="round"/><path d="M374,250 C554,250 582,724 782,724" fill="none" stroke="#5c6370" stroke-width="7" stroke-linecap="round"/><path d="M374,250 C554,250 582,724 782,724" fill="none" stroke="#ffffff" stroke-opacity="0.22" stroke-width="2" stroke-linecap="round" transform="translate(-1.5,-1.5)"/></g>
+<g filter="url(#wireShadow)"><path d="M348,250 C528,232 582,556 782,556" fill="none" stroke="#000000" stroke-opacity="0.6" stroke-width="10" stroke-linecap="round"/><path d="M348,250 C528,232 582,556 782,556" fill="none" stroke="#f5c518" stroke-width="7" stroke-linecap="round"/><path d="M348,250 C528,232 582,556 782,556" fill="none" stroke="#ffffff" stroke-opacity="0.22" stroke-width="2" stroke-linecap="round" transform="translate(-1.5,-1.5)"/></g>
+<g filter="url(#wireShadow)"><path d="M348,322 C528,304 582,584 782,584" fill="none" stroke="#000000" stroke-opacity="0.6" stroke-width="10" stroke-linecap="round"/><path d="M348,322 C528,304 582,584 782,584" fill="none" stroke="#3e8bff" stroke-width="7" stroke-linecap="round"/><path d="M348,322 C528,304 582,584 782,584" fill="none" stroke="#ffffff" stroke-opacity="0.22" stroke-width="2" stroke-linecap="round" transform="translate(-1.5,-1.5)"/></g>
+<rect x="338" y="192" width="20" height="20" rx="2" fill="url(#gold)"/><text x="348.0" y="205.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >1</text>
+<circle cx="348" cy="226" r="10" fill="url(#gold)"/><text x="348.0" y="229.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >3</text>
+<circle cx="374" cy="226" r="10" fill="url(#gold)"/><text x="374.0" y="229.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >4</text>
+<circle cx="348" cy="274" r="10" fill="url(#gold)"/><text x="348.0" y="277.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >7</text>
+<circle cx="374" cy="274" r="10" fill="url(#gold)"/><text x="374.0" y="277.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >8</text>
+<circle cx="348" cy="298" r="10" fill="url(#gold)"/><text x="348.0" y="301.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >9</text>
+<circle cx="374" cy="298" r="10" fill="url(#gold)"/><text x="374.0" y="301.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >10</text>
+<circle cx="374" cy="322" r="10" fill="url(#gold)"/><text x="374.0" y="325.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >12</text>
+<circle cx="348" cy="346" r="10" fill="url(#gold)"/><text x="348.0" y="349.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >13</text>
+<circle cx="374" cy="346" r="10" fill="url(#gold)"/><text x="374.0" y="349.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >14</text>
+<circle cx="348" cy="370" r="10" fill="url(#gold)"/><text x="348.0" y="373.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >15</text>
+<circle cx="374" cy="370" r="10" fill="url(#gold)"/><text x="374.0" y="373.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >16</text>
+<circle cx="348" cy="394" r="10" fill="url(#gold)"/><text x="348.0" y="397.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >17</text>
+<circle cx="374" cy="394" r="10" fill="url(#gold)"/><text x="374.0" y="397.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >18</text>
+<circle cx="348" cy="418" r="10" fill="url(#gold)"/><text x="348.0" y="421.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >19</text>
+<circle cx="374" cy="418" r="10" fill="url(#gold)"/><text x="374.0" y="421.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >20</text>
+<circle cx="348" cy="442" r="10" fill="url(#gold)"/><text x="348.0" y="445.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >21</text>
+<circle cx="374" cy="442" r="10" fill="url(#gold)"/><text x="374.0" y="445.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >22</text>
+<circle cx="348" cy="466" r="10" fill="url(#gold)"/><text x="348.0" y="469.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >23</text>
+<circle cx="374" cy="466" r="10" fill="url(#gold)"/><text x="374.0" y="469.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >24</text>
+<circle cx="348" cy="490" r="10" fill="url(#gold)"/><text x="348.0" y="493.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >25</text>
+<circle cx="374" cy="490" r="10" fill="url(#gold)"/><text x="374.0" y="493.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >26</text>
+<circle cx="348" cy="514" r="10" fill="url(#gold)"/><text x="348.0" y="517.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >27</text>
+<circle cx="374" cy="514" r="10" fill="url(#gold)"/><text x="374.0" y="517.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >28</text>
+<circle cx="348" cy="538" r="10" fill="url(#gold)"/><text x="348.0" y="541.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >29</text>
+<circle cx="374" cy="538" r="10" fill="url(#gold)"/><text x="374.0" y="541.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >30</text>
+<circle cx="348" cy="562" r="10" fill="url(#gold)"/><text x="348.0" y="565.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >31</text>
+<circle cx="374" cy="562" r="10" fill="url(#gold)"/><text x="374.0" y="565.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >32</text>
+<circle cx="348" cy="586" r="10" fill="url(#gold)"/><text x="348.0" y="589.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >33</text>
+<circle cx="374" cy="586" r="10" fill="url(#gold)"/><text x="374.0" y="589.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >34</text>
+<circle cx="348" cy="610" r="10" fill="url(#gold)"/><text x="348.0" y="613.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >35</text>
+<circle cx="374" cy="610" r="10" fill="url(#gold)"/><text x="374.0" y="613.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >36</text>
+<circle cx="348" cy="634" r="10" fill="url(#gold)"/><text x="348.0" y="637.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >37</text>
+<circle cx="374" cy="634" r="10" fill="url(#gold)"/><text x="374.0" y="637.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >38</text>
+<circle cx="348" cy="658" r="10" fill="url(#gold)"/><text x="348.0" y="661.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >39</text>
+<circle cx="374" cy="658" r="10" fill="url(#gold)"/><text x="374.0" y="661.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#3b2a05" text-anchor="middle" font-weight="700" >40</text>
+<rect x="362" y="190" width="24" height="24" rx="3" fill="#15171b" stroke="#e5484d" stroke-width="3"/>
+<text x="374.0" y="206.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700" >2</text>
+<rect x="772" y="742" width="20" height="20" rx="3" fill="#15171b" stroke="#e5484d" stroke-width="3"/><rect x="779" y="749" width="6" height="6" fill="#30363d"/>
+<rect x="362" y="238" width="24" height="24" rx="3" fill="#15171b" stroke="#9aa1ab" stroke-width="3"/>
+<text x="374.0" y="254.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700" >6</text>
+<rect x="772" y="714" width="20" height="20" rx="3" fill="#15171b" stroke="#9aa1ab" stroke-width="3"/><rect x="779" y="721" width="6" height="6" fill="#30363d"/>
+<rect x="336" y="238" width="24" height="24" rx="3" fill="#15171b" stroke="#f5c518" stroke-width="3"/>
+<text x="348.0" y="254.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700" >5</text>
+<rect x="772" y="546" width="20" height="20" rx="3" fill="#15171b" stroke="#f5c518" stroke-width="3"/><rect x="779" y="553" width="6" height="6" fill="#30363d"/>
+<rect x="336" y="310" width="24" height="24" rx="3" fill="#15171b" stroke="#3e8bff" stroke-width="3"/>
+<text x="348.0" y="326.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700" >11</text>
+<rect x="772" y="574" width="20" height="20" rx="3" fill="#15171b" stroke="#3e8bff" stroke-width="3"/><rect x="779" y="581" width="6" height="6" fill="#30363d"/>
+<g filter="url(#wireShadow)"><rect x="523.2" y="559.1" width="175.1" height="30" rx="15" fill="#e5484d" stroke="#0b1020" stroke-width="2"/></g>
+<text x="610.7" y="578.6" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5" fill="#ffffff" text-anchor="middle" font-weight="700" >5V · pin 2 (5V) → VIN</text>
+<g filter="url(#wireShadow)"><rect x="585.4" y="659.7" width="189.3" height="30" rx="15" fill="#5c6370" stroke="#0b1020" stroke-width="2"/></g>
+<text x="680.0" y="679.2" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5" fill="#ffffff" text-anchor="middle" font-weight="700" >GND · pin 6 (GND) → GND</text>
+<g filter="url(#wireShadow)"><rect x="426.6" y="348.5" width="210.6" height="30" rx="15" fill="#f5c518" stroke="#0b1020" stroke-width="2"/></g>
+<text x="531.9" y="368.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5" fill="#111827" text-anchor="middle" font-weight="700" >WAKE · pin 5 (GPIO3) → D25</text>
+<g filter="url(#wireShadow)"><rect x="430.9" y="431.2" width="253.2" height="30" rx="15" fill="#3e8bff" stroke="#0b1020" stroke-width="2"/></g>
+<text x="557.5" y="450.8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5" fill="#ffffff" text-anchor="middle" font-weight="700" >SHUTDOWN · pin 11 (GPIO17) → D26</text>
+<text x="60.0" y="772.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#f0f3f6" text-anchor="start" font-weight="700" >Jumpers (female–female)</text>
+<rect x="60" y="789" width="30" height="9" rx="4.5" fill="#e5484d"/>
+<text x="102.0" y="798.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#c9d1d9" text-anchor="start" font-weight="400" xml:space="preserve">ESP32 VIN  → Pi pin 2  (5V)      power: Pi 5 V → ESP32 regulator</text>
+<rect x="60" y="813" width="30" height="9" rx="4.5" fill="#5c6370"/>
+<text x="102.0" y="822.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#c9d1d9" text-anchor="start" font-weight="400" xml:space="preserve">ESP32 GND  → Pi pin 6  (GND)     common ground</text>
+<rect x="60" y="837" width="30" height="9" rx="4.5" fill="#f5c518"/>
+<text x="102.0" y="846.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#c9d1d9" text-anchor="start" font-weight="400" xml:space="preserve">ESP32 D25  → Pi pin 5  (GPIO3)   pulse low = wake the Pi from halt</text>
+<rect x="60" y="861" width="30" height="9" rx="4.5" fill="#3e8bff"/>
+<text x="102.0" y="870.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#c9d1d9" text-anchor="start" font-weight="400" xml:space="preserve">ESP32 D26  → Pi pin 11 (GPIO17)  pulse low = clean shutdown</text>
+</svg>
