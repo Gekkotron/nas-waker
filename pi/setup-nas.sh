@@ -4,7 +4,7 @@
 #
 # Idempotent: safe to run again after a reinstall or a config change.
 # Run on the Pi, from this folder:
-#   sudo FTP_PASS='choose-one' ./setup-nas.sh            # first install
+#   sudo FTP_PASS='choose-one' ./setup-nas.sh            # first install (FTP + Samba password)
 #   sudo ./setup-nas.sh                                  # re-run, keeps the FTP password
 #   sudo ./setup-nas.sh --rescan                         # also rebuild the DLNA index
 set -euo pipefail
@@ -113,6 +113,53 @@ for s in minidlna vsftpd; do
   printf '[Unit]\nRequiresMountsFor=%s\n' "$MNT" > "/etc/systemd/system/$s.service.d/mount.conf"
 done
 
+echo "== Samba: \\\\$(hostname)\\Backups for the Finder / Explorer (same account as FTP)"
+apt-get install -y -qq samba avahi-daemon >/dev/null
+[ -f /etc/samba/smb.conf.orig ] || cp /etc/samba/smb.conf /etc/samba/smb.conf.orig
+cat > /etc/samba/smb.conf <<EOF
+[global]
+   server string = NAS
+   server role = standalone server
+   workgroup = WORKGROUP
+   server min protocol = SMB2_10
+   disable netbios = yes
+   smb ports = 445
+   map to guest = never
+   restrict anonymous = 2
+   load printers = no
+   printing = bsd
+   printcap name = /dev/null
+   disable spoolss = yes
+   log file = /var/log/samba/log.%m
+   max log size = 1000
+   logging = file
+   multicast dns register = yes
+
+[Backups]
+   path = $BACKUP_DIR
+   comment = Nightly backups
+   valid users = $FTP_USER
+   read only = no
+   browseable = yes
+   # files written from the Mac look exactly like FTP uploads
+   force user = $FTP_USER
+   force group = nas
+   create mask = 0664
+   directory mask = 0775
+   # keep macOS clutter off the NTFS disk
+   veto files = /.DS_Store/._*/.Trashes/.Spotlight-V100/.fseventsd/
+   delete veto files = yes
+EOF
+testparm -s /etc/samba/smb.conf >/dev/null 2>&1 || { echo "smb.conf invalid" >&2; exit 1; }
+if [ -n "${SMB_PASS:-${FTP_PASS:-}}" ]; then
+  P="${SMB_PASS:-$FTP_PASS}"
+  printf '%s\n%s\n' "$P" "$P" | smbpasswd -s -a "$FTP_USER" >/dev/null
+elif ! pdbedit -L 2>/dev/null | grep -q "^$FTP_USER:"; then
+  echo "   WARNING: no Samba password for $FTP_USER yet; re-run with SMB_PASS=… (or FTP_PASS=…)"
+fi
+mkdir -p /etc/systemd/system/smbd.service.d
+printf '[Unit]\nRequiresMountsFor=%s\n' "$MNT" > /etc/systemd/system/smbd.service.d/mount.conf
+
 echo "== nightly auto-shutdown"
 install -m 755 nightly-autoshutdown /usr/local/sbin/nightly-autoshutdown
 install -m 644 systemd/nightly-autoshutdown.service systemd/nightly-autoshutdown.timer /etc/systemd/system/
@@ -131,13 +178,13 @@ grep -q '^WAKE_ON_GPIO=1' <(rpi-eeprom-config 2>/dev/null) \
 
 echo "== services"
 systemctl daemon-reload
-systemctl enable -q minidlna vsftpd nightly-autoshutdown.timer
+systemctl enable -q minidlna vsftpd smbd avahi-daemon nightly-autoshutdown.timer
 if [ "$RESCAN" = 1 ]; then
   systemctl stop minidlna
   rm -f /var/cache/minidlna/files.db
 fi
-systemctl restart vsftpd minidlna
+systemctl restart vsftpd minidlna smbd
 systemctl start nightly-autoshutdown.timer
 sleep 2
-systemctl is-active minidlna vsftpd nightly-autoshutdown.timer
+systemctl is-active minidlna vsftpd smbd nightly-autoshutdown.timer
 echo "== done"
