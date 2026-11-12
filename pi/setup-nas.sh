@@ -7,6 +7,7 @@
 #   sudo FTP_PASS='choose-one' ./setup-nas.sh            # first install (FTP + Samba password)
 #   sudo ./setup-nas.sh                                  # re-run, keeps the FTP password
 #   sudo ./setup-nas.sh --rescan                         # also rebuild the DLNA index
+#   sudo DISK_PASS='…' ./setup-nas.sh                     # Samba password of the whole-disk share
 set -euo pipefail
 cd "$(dirname "$0")"
 
@@ -18,6 +19,7 @@ NAS_GID=1000
 MEDIA_DIRS=("Films" "Dessin animée" "Séries" "News")   # folders on the disk shared over DLNA
 DLNA_NAME="${DLNA_NAME:-NAS Films}"
 FTP_USER="${FTP_USER:-ftpbackup}"
+DISK_USER="${DISK_USER:-nas}"                     # SMB account for the whole-disk share
 BACKUP_DIR="$MNT/Backups"
 SHUTDOWN_GPIO=17                                  # ESP32 pulls it low = clean shutdown
 # ---------------------------------------------------------------------------
@@ -113,7 +115,7 @@ for s in minidlna vsftpd; do
   printf '[Unit]\nRequiresMountsFor=%s\n' "$MNT" > "/etc/systemd/system/$s.service.d/mount.conf"
 done
 
-echo "== Samba: \\\\$(hostname)\\Backups for the Finder / Explorer (same account as FTP)"
+echo "== Samba: \\\\$(hostname)\\Backups (FTP account) and \\\\$(hostname)\\Disque (whole disk, $DISK_USER)"
 apt-get install -y -qq samba avahi-daemon >/dev/null
 [ -f /etc/samba/smb.conf.orig ] || cp /etc/samba/smb.conf /etc/samba/smb.conf.orig
 cat > /etc/samba/smb.conf <<EOF
@@ -149,6 +151,20 @@ cat > /etc/samba/smb.conf <<EOF
    # keep macOS clutter off the NTFS disk
    veto files = /.DS_Store/._*/.Trashes/.Spotlight-V100/.fseventsd/
    delete veto files = yes
+
+# the whole disk, to sort and clean up files; not for the backup account
+[Disque]
+   path = $MNT
+   comment = Whole disk
+   valid users = $DISK_USER
+   read only = no
+   browseable = yes
+   force user = $DISK_USER
+   force group = nas
+   create mask = 0664
+   directory mask = 0775
+   veto files = /.DS_Store/._*/.Trashes/.Spotlight-V100/.fseventsd/
+   delete veto files = yes
 EOF
 testparm -s /etc/samba/smb.conf >/dev/null 2>&1 || { echo "smb.conf invalid" >&2; exit 1; }
 if [ -n "${SMB_PASS:-${FTP_PASS:-}}" ]; then
@@ -156,6 +172,11 @@ if [ -n "${SMB_PASS:-${FTP_PASS:-}}" ]; then
   printf '%s\n%s\n' "$P" "$P" | smbpasswd -s -a "$FTP_USER" >/dev/null
 elif ! pdbedit -L 2>/dev/null | grep -q "^$FTP_USER:"; then
   echo "   WARNING: no Samba password for $FTP_USER yet; re-run with SMB_PASS=… (or FTP_PASS=…)"
+fi
+if [ -n "${DISK_PASS:-}" ]; then
+  printf '%s\n%s\n' "$DISK_PASS" "$DISK_PASS" | smbpasswd -s -a "$DISK_USER" >/dev/null
+elif ! pdbedit -L 2>/dev/null | grep -q "^$DISK_USER:"; then
+  echo "   WARNING: no Samba password for $DISK_USER yet; re-run with DISK_PASS=…"
 fi
 mkdir -p /etc/systemd/system/smbd.service.d
 printf '[Unit]\nRequiresMountsFor=%s\n' "$MNT" > /etc/systemd/system/smbd.service.d/mount.conf

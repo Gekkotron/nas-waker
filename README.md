@@ -5,6 +5,7 @@ A Raspberry Pi 4 home NAS that is only on when it is needed, woken by an ESP32.
 - **Films over DLNA**: MiniDLNA shares an NTFS USB disk (TVs, Freebox, VLC).
 - **Nightly backups over FTP**: vsftpd, one jailed account, plain FTP on the LAN.
 - **Backups in the Finder**: an SMB share of the same folder, with the same account.
+- **Whole disk in the Finder**: a second SMB share, `Disque`, for the login account `nas`, to sort and clean up files.
 - **Power schedule**: a Nidoo flow presses *Wake NAS* at 22:45 and *Shut down NAS* at 23:15 every night. The ESP32 has no schedule of its own.
 - **Nidoo integration**: the ESP32 publishes Home Assistant MQTT discovery, so [Nidoo](https://github.com/Gekkotron/Nidoo) shows *Wake NAS* and *Shut down NAS* with no Nidoo change.
 
@@ -78,7 +79,7 @@ The script:
 
 - mounts the disk at `/mnt/films` with the in-kernel `ntfs3` driver (`nofail`, so the Pi still boots without it);
 - installs MiniDLNA ("NAS Films", status page on port 8200) and vsftpd (account `ftpbackup`, jailed in `/mnt/films/Backups`, passive ports 40000–40100);
-- installs Samba: one share, `Backups`, for the same folder and the same account (SMB2+ only, no guest, macOS `.DS_Store` / `._*` files blocked), announced over mDNS as **NAS**;
+- installs Samba (SMB2+ only, no guest, macOS `.DS_Store` / `._*` files blocked), announced over mDNS as **NAS**, with two shares: `Backups`, for the same folder and the same account as FTP, and `Disque`, the whole disk, for the account `nas` (Samba password set with `DISK_PASS=…`);
 - installs the nightly auto-shutdown;
 - adds `dtoverlay=gpio-shutdown,gpio_pin=17` to `/boot/firmware/config.txt`.
 
@@ -88,6 +89,7 @@ It keeps `.orig` copies of the config files it replaces.
 
 - **FTP**: `192.168.1.131`, port 21, user `ftpbackup`, plain FTP, passive mode. The account is jailed in the disk's `Backups` folder, so a client's `/` is `Backups/`. A remote path of `/backups/Accounting` lands in `Backups/backups/Accounting/` on the disk.
 - **SMB**: in the Finder, *Go → Connect to Server* (⌘K) → `smb://192.168.1.131/Backups`, same user and password. It also appears in the sidebar as **NAS**. Use it to browse, copy and delete.
+- **Whole disk**: `smb://192.168.1.131/Disque`, user `nas`. Deleting over SMB is immediate: there is no Trash.
 - **Don't use the Finder's own FTP support** (`ftp://…` in ⌘K). It is read-only, and it caches the folder listing, so new backups don't appear until you eject and reconnect.
 - **Schedule nightly backups between 22:50 and 23:05.** The Pi starts at 22:45 and needs about a minute before FTP accepts connections. At 23:15 it shuts down even if an upload is still running.
 
